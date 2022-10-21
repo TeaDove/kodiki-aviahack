@@ -45,7 +45,7 @@ resource "yandex_function" "function" {
 }
 
 resource "yandex_iam_service_account" "sa" {
-  name = join("-", [var.name_prefix, "sa"])
+  name = join("-", [var.name_prefix, "backend-sa"])
 }
 
 resource "yandex_resourcemanager_folder_iam_binding" "sa_binding" {

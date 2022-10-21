@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import UJSONResponse
 from starlette.exceptions import ExceptionMiddleware
 
@@ -15,6 +16,15 @@ def create_app() -> FastAPI:
     )
     fastapi_app.add_middleware(
         ExceptionMiddleware, handlers=fastapi_app.exception_handlers
+    )
+    fastapi_app.add_middleware(
+        CORSMiddleware,
+        allow_origin_regex=app_settings.allowed_origins_regex,
+        allow_methods=("GET", "PATCH", "POST", "DELETE"),
+        allow_headers=(
+            "Content-Type",
+            "X-Api-Key",
+        ),
     )
     fastapi_app.include_router(router_app.router)
     return fastapi_app

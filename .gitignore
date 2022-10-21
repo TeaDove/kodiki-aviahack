@@ -10,7 +10,6 @@
 ### DEPLOYMENT ZIP ###
 **/.deploy.zip
 ### TERRAFORM TMP FILES ###
-
 **/.terraform
 **/terraform.tfstate.backup
 **/terraform.tfstate

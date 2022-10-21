@@ -23,6 +23,7 @@ class _UvicornSettings(BaseSettings):
 class _AppSettings(BaseSettings):
     local_run: bool = False
     show_swagger: bool = False
+    allowed_origins_regex: str = "^.+$"
 
     class Config:
         env_file = ".env"
