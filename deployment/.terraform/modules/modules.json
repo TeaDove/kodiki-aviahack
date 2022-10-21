@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"sqs","Source":"./sqs","Dir":"sqs"},{"Key":"","Source":"","Dir":"."},{"Key":"apigw","Source":"./apigw","Dir":"apigw"},{"Key":"lambda_api","Source":"./lambda_api","Dir":"lambda_api"}]}
