@@ -165,5 +165,5 @@ dmypy.json
 .terragrunt-cache
 .terraform
 /deployment/terraform.tfstate
-/deployment/terraform.tfstate.1666360718.backup
-/deployment/terraform.tfstate.backup
+/deployment/terraform.tfstate*
+/backend/app/.env
