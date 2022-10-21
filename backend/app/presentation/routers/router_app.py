@@ -9,7 +9,9 @@ router = APIRouter(prefix="", route_class=LoggerRouteHandler)
 
 
 @router.get("/")
-async def hello_world(service_app: ServiceApp = Depends(get_service_app), _: str = Depends(get_yc_token)) -> str:
+async def hello_world(
+    service_app: ServiceApp = Depends(get_service_app), _: str = Depends(get_yc_token)
+) -> str:
     return await service_app.process_request()
 
 

@@ -11,7 +11,9 @@ from core.settings import app_settings, settings
 def _get_logger() -> Union[Logger, Any]:
     if app_settings.local_run:
         structlog.configure(
-            wrapper_class=structlog.make_filtering_bound_logger(_nameToLevel[settings.log_level]),
+            wrapper_class=structlog.make_filtering_bound_logger(
+                _nameToLevel[settings.log_level]
+            ),
         )
         return structlog.get_logger()
     else:
