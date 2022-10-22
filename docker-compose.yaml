@@ -8,9 +8,3 @@ services:
       - "127.0.0.1:8080:8080"
     environment:
       - uvicorn_port=8080
-
-  frontend:
-    build: https://github.com/SOpatrin/aviahack_2022.git#main
-    container_name: frontend_container
-    ports:
-      - "127.0.0.1:80:80"
