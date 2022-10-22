@@ -1,7 +1,7 @@
-from service.service_app import ServiceApp
+from service.service_prediction import ServicePrediction
 
-_service_app = ServiceApp()
+_service_prediction = ServicePrediction()
 
 
-def get_service_app():
-    return _service_app
+def get_service_prediction():
+    return _service_prediction
