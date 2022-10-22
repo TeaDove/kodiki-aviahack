@@ -1,10 +1,11 @@
+from datetime import date
 from typing import List
 
 from schemas.base import ConfigBaseModel
 
 
 class SeriesData(ConfigBaseModel):
-    x: float
+    x: date
     y: float
 
 

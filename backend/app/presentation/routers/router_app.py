@@ -1,4 +1,6 @@
+from datetime import date, timedelta
 from random import randint
+from typing import Any, Dict, List
 
 from fastapi import APIRouter, Depends
 
@@ -18,32 +20,21 @@ async def hello_world(
     return await service_app.process_request()
 
 
+def get_random_data(size: int) -> List[Dict[str, Any]]:
+    return [
+        {"x": date.today() + timedelta(days=i), "y": randint(1, 10)}
+        for i in range(size)
+    ]
+
+
 @router.get("/series-mock", response_model=SeriesResponse)
-def get_series_mock() -> SeriesResponse:
+def get_series_mock(size: int = 30) -> SeriesResponse:
     return SeriesResponse.parse_obj(
         {
             "series": [
-                {
-                    "id": "keeping",
-                    "data": [
-                        {"x": randint(1, 10), "y": randint(1, 10)}
-                        for _ in range(randint(10, 20))
-                    ],
-                },
-                {
-                    "id": "receiving",
-                    "data": [
-                        {"x": randint(1, 10), "y": randint(1, 10)}
-                        for _ in range(randint(10, 20))
-                    ],
-                },
-                {
-                    "id": "shipment",
-                    "data": [
-                        {"x": randint(1, 10), "y": randint(1, 10)}
-                        for _ in range(randint(10, 20))
-                    ],
-                },
+                {"id": "keeping", "data": get_random_data(size)},
+                {"id": "receiving", "data": get_random_data(size)},
+                {"id": "shipment", "data": get_random_data(size)},
             ]
         }
     )
