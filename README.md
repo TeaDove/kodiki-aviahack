@@ -2,10 +2,10 @@
 - backend: FastAPI бекэнд сервис
 - terraform: terraform+terragrunt деплоймент в Yandex Cloud с использованием
 Yandex Cloud Serverless Functions и Yandex Cloud Api Gateway
-- ml: дата процессинг
+- ml: дата процессинг, в Dockerfile описан процесс установки зависимостей для debian-slims
 
 ### Deployment to Yandex Cloud
-go to `terraform` directory and read `README.md`
+перейдите в директорию `terraform` и изучите `README.md`
 
 ### Local run
 ```shell
