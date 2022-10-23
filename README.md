@@ -3,7 +3,7 @@
 - terraform: terraform+terragrunt деплоймент в Yandex Cloud с использованием
 Yandex Cloud Serverless Functions и Yandex Cloud Api Gateway
 - ml: дата процессинг, в Dockerfile описан процесс установки зависимостей для debian-slims
-- frontend: статический фронтенд на `next.js`
+- frontend: статический фронтенд на `next.js`, https://sopatrin.github.io/aviahack_2022/
 
 ### Swagger
 - локально: localhost:8000/docs

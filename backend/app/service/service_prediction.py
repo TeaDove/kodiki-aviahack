@@ -3,6 +3,7 @@ from datetime import date, datetime, timedelta
 from random import randint
 from typing import List, Optional
 
+from core.settings import app_settings
 from schemas.series import Series, SeriesData, SeriesResponse
 
 float_precision = 3
@@ -10,36 +11,43 @@ float_precision = 3
 
 class ServicePrediction:
     def __init__(self):
-        self.msk_107_keeping_actual = json.load(
-            open("files/МСК 107_keeping_actual.json")
-        )
-        self.sz_keeping_actual = json.load(open("files/СЗ_keeping_actual.json"))
-        self.ural_keeping_actual = json.load(open("files/Урал_keeping_actual.json"))
+        self.precompiled_data = {
+            "keeping": json.load(open("files/МСК 107_keeping_actual.json")),
+            "receiving": json.load(open("files/СЗ_keeping_actual.json")),
+            "shipment": json.load(open("files/Урал_keeping_actual.json")),
+        }
 
-    def get_data(self) -> SeriesResponse:
-        return SeriesResponse(
-            series=[
-                Series(
-                    id=name,
-                    data=[
+    def _get_precompiled_data(self, from_: date, to_: date, precision_days: int):
+        series = []
+        for series_name, series_file in self.precompiled_data.items():
+            series_data = []
+            for key, value in series_file.items():
+                date_compiled = datetime.strptime(key, "%d.%m.%Y").date()
+                if from_ < date_compiled < to_:
+                    series_data.append(
                         SeriesData(
-                            x=datetime.strptime(key, "%d.%M.%Y"),
-                            y=value,
+                            x=date_compiled,
+                            y=value + app_settings.data_offset,
                         )
-                        for key, value in dict_.items()
-                    ],
+                    )
+            series.append(
+                Series(
+                    id=series_name, data=self._crop_data(series_data, precision_days)
                 )
-                for name, dict_ in (
-                    (
-                        "МСК 107_keeping_actual",
-                        self.msk_107_keeping_actual,
-                    ),
-                    ("СЗ_keeping_actual", self.sz_keeping_actual),
-                    ("СЗ_keeping_actual", self.sz_keeping_actual),
-                    ("Урал_keeping_actual", self.ural_keeping_actual),
-                )
-            ]
-        )
+            )
+        return SeriesResponse(series=series)
+
+    def get_data(
+        self,
+        delta: int,
+        from_: Optional[date] = None,
+        to_: Optional[date] = None,
+        precision_days: int = 1,
+    ) -> SeriesResponse:
+        if from_ is None or to_ is None:
+            from_ = date.today() - timedelta(days=delta) // 2
+            to_ = date.today() + timedelta(days=delta) // 2
+        return self._get_precompiled_data(from_, to_, precision_days)
 
     def _get_random_data(
         self, delta: int, from_: Optional[date] = None, to_: Optional[date] = None

@@ -12,14 +12,18 @@ from service.service_storage import ServiceStorage
 router = APIRouter(prefix="", route_class=LoggerRouteHandler)
 
 
-@router.get("/series", response_model=SeriesResponse)
-def get_series(
-    service_prediction: ServicePrediction = Depends(get_service_prediction),
-) -> SeriesResponse:
-    return service_prediction.get_data()
-
-
 @router.get("/series-mock", response_model=SeriesResponse)
+def get_series(
+    delta: int = 30,
+    from_: Optional[date] = Query(None, alias="from"),
+    to_: Optional[date] = Query(None, alias="to"),
+    service_prediction: ServicePrediction = Depends(get_service_prediction),
+    precision_days: int = Query(3, alias="precisionDays"),
+) -> SeriesResponse:
+    return service_prediction.get_data(delta, from_, to_, precision_days)
+
+
+@router.get("/series-mock-mock", response_model=SeriesResponse)
 def get_series_mock(
     delta: int = 30,
     from_: Optional[date] = Query(None, alias="from"),

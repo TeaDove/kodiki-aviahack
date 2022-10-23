@@ -25,6 +25,8 @@ class _AppSettings(BaseSettings):
     show_swagger: bool = False
     allowed_origins_regex: str = "^.+$"
 
+    data_offset: int = -6000
+
     class Config:
         env_file = ".env"
         env_prefix = "app_"
