@@ -10,14 +10,15 @@ data "yandex_compute_image" "container-optimized-image" {
   family = "container-optimized-image"
 }
 
-resource "yandex_compute_instance" "db_server" {
-  name        = join("-", [var.name_prefix, "db-server"])
-  platform_id = "standard-v2"
+resource "yandex_compute_instance" "ml_service" {
+  name        = join("-", [var.name_prefix, "ml-service"])
+  platform_id = "standard-v3"
+
 
   resources {
-    cores         = 2
-    memory        = 0.5
-    core_fraction = 5
+    cores         = 8
+    memory        = 8
+    core_fraction = 100
   }
 
   boot_disk {
@@ -32,14 +33,11 @@ resource "yandex_compute_instance" "db_server" {
     nat        = true
   }
 
-  metadata = {
-    docker-compose = templatefile("${var.terraform_dir_path}/cc/docker-compose.tftpl",
-      { container_image_url = var.container_image_url,
-        postgres_user       = var.postgres_user
-    postgres_password = var.postgres_password })
-    user-data = file("${var.terraform_dir_path}/cc/user-data.yml")
-  }
   service_account_id = yandex_iam_service_account.sa.id
+
+  metadata = {
+    user-data = file("${var.terraform_dir_path}/ml_cc/user-data.yml")
+  }
 
   scheduling_policy {
     preemptible = true
