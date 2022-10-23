@@ -7,7 +7,7 @@ terraform {
 }
 
 data "yandex_compute_image" "container-optimized-image" {
-  family = "container-optimized-image"
+  family = "ubuntu-2004-lts"
 }
 
 resource "yandex_compute_instance" "ml_service" {
@@ -24,6 +24,7 @@ resource "yandex_compute_instance" "ml_service" {
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.container-optimized-image.id
+      size = 50
     }
   }
 

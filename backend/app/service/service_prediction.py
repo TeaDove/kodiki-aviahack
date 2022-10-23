@@ -1,13 +1,46 @@
-from datetime import date, timedelta
+import json
+from datetime import date, datetime, timedelta
 from random import randint
 from typing import List, Optional
 
-from schemas.series import SeriesData, SeriesResponse
+from schemas.series import Series, SeriesData, SeriesResponse
 
 float_precision = 3
 
 
 class ServicePrediction:
+    def __init__(self):
+        self.msk_107_keeping_actual = json.load(
+            open("files/МСК 107_keeping_actual.json")
+        )
+        self.sz_keeping_actual = json.load(open("files/СЗ_keeping_actual.json"))
+        self.ural_keeping_actual = json.load(open("files/Урал_keeping_actual.json"))
+
+    def get_data(self) -> SeriesResponse:
+        return SeriesResponse(
+            series=[
+                Series(
+                    id=name,
+                    data=[
+                        SeriesData(
+                            x=datetime.strptime(key, "%d.%M.%Y"),
+                            y=value,
+                        )
+                        for key, value in dict_.items()
+                    ],
+                )
+                for name, dict_ in (
+                    (
+                        "МСК 107_keeping_actual",
+                        self.msk_107_keeping_actual,
+                    ),
+                    ("СЗ_keeping_actual", self.sz_keeping_actual),
+                    ("СЗ_keeping_actual", self.sz_keeping_actual),
+                    ("Урал_keeping_actual", self.ural_keeping_actual),
+                )
+            ]
+        )
+
     def _get_random_data(
         self, delta: int, from_: Optional[date] = None, to_: Optional[date] = None
     ) -> List[SeriesData]:
@@ -43,7 +76,7 @@ class ServicePrediction:
         from_: Optional[date] = None,
         to_: Optional[date] = None,
         precision_days: int = 1,
-    ):
+    ) -> SeriesResponse:
         if precision_days == 1:
             return SeriesResponse.parse_obj(
                 {

@@ -49,6 +49,14 @@ class _SecuritySettings(BaseSettings):
         env_prefix = "security_"
 
 
+class _PredictionService(BaseSettings):
+    base_host_url: str = "http://178.154.222.99:8000"
+
+    class Config:
+        env_file = ".env"
+        env_prefix = "predict_"
+
+
 class _S3Settings(BaseSettings):
     endpoint: str = "https://storage.yandexcloud.net"
     bucket_name: str = "ml-files"
@@ -60,3 +68,4 @@ settings = _Settings()
 app_settings = _AppSettings()
 security_settings = _SecuritySettings()
 uvicorn_settings = _UvicornSettings()
+prediction_service = _PredictionService()
