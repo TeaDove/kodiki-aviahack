@@ -3,7 +3,7 @@
 - terraform: terraform+terragrunt деплоймент в Yandex Cloud с использованием
 Yandex Cloud Serverless Functions и Yandex Cloud Api Gateway
 - ml: дата процессинг, в Dockerfile описан процесс установки зависимостей для debian-slims
-- frontend: в отдельном репозитории: https://github.com/SOpatrin/aviahack_2022
+- frontend: статический фронтенд на `next.js`
 
 ### Deployment to Yandex Cloud
 перейдите в директорию `terraform` и изучите `README.md`
