@@ -49,6 +49,12 @@ class _SecuritySettings(BaseSettings):
         env_prefix = "security_"
 
 
+class _S3Settings(BaseSettings):
+    endpoint: str = "https://storage.yandexcloud.net"
+    bucket_name: str = "ml-files"
+
+
+s3_settings = _S3Settings()
 db_settings = _DBSettings()
 settings = _Settings()
 app_settings = _AppSettings()

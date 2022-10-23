@@ -54,7 +54,8 @@ resource "yandex_resourcemanager_folder_iam_binding" "sa_binding" {
   folder_id = var.yc_folder_id
   for_each = {
     "role1" : "serverless.functions.invoker"
-    "role2" : "serverless.containers.invoker"
+    "role2" : "storage.viewer",
+    "role3" : "storage.uploader",
   }
 }
 
