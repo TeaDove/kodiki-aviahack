@@ -4,6 +4,7 @@
 Yandex Cloud Serverless Functions и Yandex Cloud Api Gateway
 - ml: дата процессинг, в Dockerfile описан процесс установки зависимостей для debian-slims
 - frontend: статический фронтенд на `next.js`, https://sopatrin.github.io/aviahack_2022/
+- презентация: https://docs.google.com/presentation/d/1ue9PhQBtZil8Lu9swR51HMwu0X9_bXvO/edit?usp=sharing&ouid=112339786120233072864&rtpof=true&sd=true
 
 ### Swagger
 - локально: localhost:8000/docs
