@@ -5,7 +5,6 @@ defaults:
   yc_cloud_id: b1g15gt835j53bc2hir0
   yc_folder_id: b1gt1lbgafrf073jso0u
   yc_zone: ru-central1-a
-  ml_internal_ip_address: 10.2.0.10
   log_level: DEBUG
 
 envs:

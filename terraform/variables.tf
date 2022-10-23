@@ -1,4 +1,3 @@
-variable "ml_internal_ip_address" {}
 variable "show_swagger" {}
 variable "yc_folder_id" {}
 ### DO NOT CHANGE ###

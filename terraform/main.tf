@@ -26,19 +26,3 @@ module "backend_apigw" {
   function_service_account_id = module.backend_lambda.service_account_id
   name_prefix                 = var.name_prefix
 }
-
-module "vpc" {
-  source = "./vpc"
-
-  name_prefix = var.name_prefix
-}
-
-module "ml_cc" {
-  source = "./ml_cc"
-
-  terraform_dir_path = var.terraform_dir_path
-  internal_ip_address = var.ml_internal_ip_address
-  vpc_subnet_id = module.vpc.vpc_subnet_id
-  name_prefix = var.name_prefix
-  yc_folder_id = var.yc_folder_id
-}
