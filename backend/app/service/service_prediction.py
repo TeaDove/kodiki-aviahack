@@ -22,17 +22,21 @@ class ServicePrediction:
         for series_name, series_file in self.precompiled_data.items():
             series_data = []
             for key, value in series_file.items():
-                date_compiled = datetime.strptime(key, "%d.%m.%Y").date()
+                date_compiled = datetime.strptime(key, "%Y-%m-%d").date()
                 if from_ < date_compiled < to_:
                     series_data.append(
                         SeriesData(
-                            x=date_compiled,
+                            x=date_compiled.replace(year=2022),
                             y=value + app_settings.data_offset,
                         )
                     )
             series.append(
                 Series(
-                    id=series_name, data=self._crop_data(series_data, precision_days)
+                    id=series_name,
+                    data=sorted(
+                        self._crop_data(series_data, precision_days),
+                        key=lambda x: x.x,
+                    ),
                 )
             )
         return SeriesResponse(series=series)
