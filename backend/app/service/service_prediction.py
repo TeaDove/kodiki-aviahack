@@ -22,11 +22,11 @@ class ServicePrediction:
         for series_name, series_file in self.precompiled_data.items():
             series_data = []
             for key, value in series_file.items():
-                date_compiled = datetime.strptime(key, "%Y-%m-%d").date()
+                date_compiled = datetime.strptime(key, "%d.%m.%Y").date()
                 if from_ < date_compiled < to_:
                     series_data.append(
                         SeriesData(
-                            x=date_compiled.replace(year=2022),
+                            x=date_compiled,
                             y=value + app_settings.data_offset,
                         )
                     )
